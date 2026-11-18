@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------------------
+# Beispielkonfiguration fuer das LiteLLM-MCP-Gateway.
+#
+# Datei nach z. B. /etc/litellm/config.yaml kopieren und anpassen.
+# Umgebungsvariablen werden beim Start des Proxys gesetzt.
+# ---------------------------------------------------------------------------
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+  # Nur MCP-Server in diesen Netzen duerfen ueber das Gateway erreicht werden.
+  # Das haelt die JTL-Wawi-Daten im internen Netz.
+  mcp_internal_ip_ranges:
+    - "10.0.0.0/8"
+    - "172.16.0.0/12"
+    - "192.168.0.0/16"
+
+model_list:
+  - model_name: jtl-assistent
+    litellm_params:
+      # Lokales LLM (z. B. Qwen3 27B) hinter einem OpenAI-kompatiblen Endpoint.
+      model: openai/qwen3-27b
+      api_base: os.environ/LLM_API_BASE
+      api_key: os.environ/LLM_API_KEY
+
+mcp_servers:
+  # Name darf keinen Bindestrich enthalten.
+  jtl_wawi:
+    url: "http://10.10.10.20:8080/mcp"
+    transport: "http"                 # Streamable HTTP
+    auth_type: "bearer_token"         # -> Authorization: Bearer <auth_value>
+    auth_value: "os.environ/JTL_MCP_AUTH_TOKEN"
+    available_on_public_internet: false
+    description: "JTL-Wawi (nur Lesezugriffe): Auftraege, Kunden, Artikel, Lager, Versand"
+
+# ---------------------------------------------------------------------------
+# Start des Proxys:
+#
+#   export LITELLM_MASTER_KEY=...
+#   export LLM_API_BASE=http://llm-intern:8000/v1
+#   export LLM_API_KEY=...
+#   export JTL_MCP_AUTH_TOKEN=<identisch mit MCP_SERVER_AUTH_TOKEN der MCP-App>
+#   litellm --config /etc/litellm/config.yaml
+#
+# Der MCP-Endpunkt des Gateways ist dann unter
+#   http://<litellm-host>:4000/mcp
+# erreichbar. Clients authentifizieren sich mit dem LiteLLM-Key:
+#
+#   curl -H "x-litellm-api-key: Bearer $LITELLM_MASTER_KEY" \
+#        http://<litellm-host>:4000/mcp
+#
+# Direktzugriff auf den JTL-MCP-Server (z. B. fuer Diagnose):
+#
+#   curl -H "Authorization: Bearer $JTL_MCP_AUTH_TOKEN" \
+#        http://10.10.10.20:8080/mcp
+# ---------------------------------------------------------------------------

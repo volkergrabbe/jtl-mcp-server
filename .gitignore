@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Tests / Coverage
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Secrets und lokale Konfiguration
+.env
+.env.*
+!.env.example
+
+# Mock-/Demo-Umgebung (generierte Artefakte)
+mock_env/jtl_erp_demo.json
+mock_env/prism.log
+mock_env/mcp-server.log
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,53 @@
+[Unit]
+Description=JTL-Wawi Read-Only MCP Server (Streamable HTTP)
+Documentation=https://developer.jtl-software.com/products/erpapi/openapi/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=__SERVICE_USER__
+Group=__SERVICE_GROUP__
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=__ENV_FILE__
+ExecStart=__APP_DIR__/.venv/bin/jtl-mcp-server
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGINT
+
+# --- Hardening -------------------------------------------------------------
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+
+# Der Server schreibt ausschliesslich nach stdout/stderr (journald).
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=jtl-mcp-server
+
+[Install]
+WantedBy=multi-user.target
