@@ -423,7 +423,46 @@ Die Original-Spec bleibt unverändert unter `mock_env/jtl_erp_1.1.json`.
 
 ---
 
-## 12. Referenzen
+## 12. Support & Bug-Reporting
+
+Fehler bitte als **strukturiertes Bug-Report** im [Issue-Tracker](https://github.com/volkergrabbe/jtl-mcp-server/issues)
+melden — nicht als Kommentar in Discussions oder per Mail.
+
+### So läuft das
+
+1. **Issue öffnen:** `New issue → Bug Report` (Template mit allen nötigen Feldern).
+2. **Auto-Triage:** Der Workflow `issue-triage.yml` klassifiziert das Issue
+   automatisch. Mit ausreichend Reproduktionsdetails bekommt es das Label
+   `auto-fix`.
+3. **Automatischer Fix:** Ein **autonomer mcode-Agent** (MiniMax M3) auf einem
+   dedizierten LXC-Container bearbeitet Issues mit `auto-fix`:
+   * klonnt den Repo, reproduziert den Bug (respx-Mocks, keine echte Wawi nötig)
+   * implementiert den Fix und läuft die komplette Test-Suite
+   * eröffnet einen **Draft-PR** mit Fix + Verifikations-Log
+4. **Menschliches Review:** Merging ist **immer** ein menschlicher Schritt.
+   Der Agent merged nie selbst.
+
+> Details zur Fixer-Infrastruktur (LXC-Setup, Webhook, Betrieb) stehen in
+> **`deploy/AUTO_FIX.md`**.
+
+### Labels
+
+| Label | Bedeutung |
+|-------|-----------|
+| `bug` | Fehler |
+| `auto-fix` | Vom mcode-Agenten bearbeitbar |
+| `needs-triage` | Wartet auf Prüfung |
+| `enhancement` | Feature-Request |
+| `help wanted` | Setup/Config-Frage |
+| `wontfix` | Wird nicht gefixt |
+
+### Beitragende
+
+Code-Beiträge, Test- und Lint-Konventionen: siehe **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+
+---
+
+## 13. Referenzen
 
 * JTL-Wawi REST-API (OpenAPI-Spec v1.1):
   <https://developer.jtl-software.com/openapi/erp/1.1.json>
@@ -438,4 +477,9 @@ Die Original-Spec bleibt unverändert unter `mock_env/jtl_erp_1.1.json`.
 
 ## Lizenz
 
-MIT
+**MIT** — frei nutzbar, modifizierbar, auch kommerziell.
+
+> **Hinweis:** Dieses Projekt wird bewusst **nicht** auf Agent-Skill-Marketplaces
+> (z.B. Agensi) als bezahltes Produkt gelistet. Die MIT-Lizenz erlaubt es
+> Dritten zwar technisch, den Code zu verwenden — der Maintainer bietet
+> Support jedoch nur über den GitHub-Issue-Tracker an.

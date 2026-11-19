@@ -1,0 +1,33 @@
+name: "Feature Request"
+description: "Eine neue Funktion oder Verbesserung vorschlagen"
+title: "Feature: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Welches Problem löst ihr damit?
+      description: "Welches Problem besteht, das diese Feature lösen würde?"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Geschätzte Lösung
+      description: "Beschreibt euer Feature oder den gewünschten Workflow."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativ-Lösungen
+      description: "Gibt es andere Wege, euer Problem zu lösen?"
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Zusätzlicher Kontext
+      description: "Screenshots, Wireframes, Referenzen zu anderen Tools."
+    validations:
+      required: false

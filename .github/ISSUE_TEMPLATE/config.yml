@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: JTL-Wawi OpenAPI Doku
+    url: https://developer.jtl-software.com/products/erpapi/openapi/
+    about: Offizielle JTL-API-Dokumentation

@@ -1,0 +1,86 @@
+name: "Bug Report"
+description: "Einen Fehler im jtl-mcp-server melden"
+title: "Bug: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bitte vollständig ausfüllen — unvollständige Bug-Reports werden als wontfix geschlossen.
+  - type: textarea
+    id: wawi-version
+    attributes:
+      label: JTL-Wawi-Version
+      description: "Welche Version von JTL-Wawi nutzt ihr?"
+      placeholder: "z.B. 1.11, 2.0, 2.1"
+    validations:
+      required: true
+  - type: textarea
+    id: mcp-version
+    attributes:
+      label: jtl-mcp-server Version
+      description: "pip show jtl-mcp-server oder jtl-mcp-server --version"
+      placeholder: "z.B. 0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: python-version
+    attributes:
+      label: Python-Version
+      description: "python3 --version"
+      placeholder: "z.B. 3.12"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung des Problems
+      description: "Was ist passiert? Was erwartetet ihr stattdessen?"
+    validations:
+      required: true
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Vollständiger Traceback
+      description: "Nicht nur die letzte Zeile. Der komplette Stack-Trace aus dem MCP-Server-Log oder der LiteLLM-Antwort."
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimales Reproduktionsbeispiel
+      description: "Welche MCP-Tool-Aufrufe führen zum Fehler? Am besten als JSON."
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log-Output (DEBUG)
+      description: "Startet den Server mit JTL_MCP_LOG_LEVEL=DEBUG und hängt den relevanten Abschnitt an."
+      render: text
+    validations:
+      required: false
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Umgebung
+      options:
+        - Streamable HTTP (Standard)
+        - stdio
+        - Docker
+        - Proxmox LXC
+        - Sonstige
+    validations:
+      required: true
+  - type: dropdown
+    id: jtl-api-version
+    attributes:
+      label: JTL API-Version
+      options:
+        - REST v1
+        - REST v2
+        - Nicht sicher
+    validations:
+      required: true

@@ -1,0 +1,30 @@
+[Unit]
+Description=jtl-fixer-bot (mcode auto-fix)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jtlfixer
+Group=jtlfixer
+WorkingDirectory=/opt/jtl-fixer
+EnvironmentFile=/etc/jtl-fixer/config.env
+ExecStart=/usr/bin/python3 /opt/jtl-fixer/fixer-bot.py
+Restart=on-failure
+RestartSec=30
+
+# Härtung
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/jtl-fixer /var/log/jtl-fixer /opt/jtl-fixer
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target

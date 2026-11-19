@@ -1,0 +1,43 @@
+name: "Config / Setup Problem"
+description: "Problem bei Installation, Konfiguration oder Umgebung"
+title: "Setup: "
+labels: ["help wanted", "needs-triage"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Was versucht ihr zu tun?
+      description: "z.B. Server starten, LiteLLM verbinden, Docker-Setup, LXC"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Fehlermeldung
+      description: "Komplette Fehlermeldung oder Traceback."
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Eure Konfiguration
+      description: |
+        Hängt die relevante .env oder LiteLLM-Config an
+        (API-Keys durch [REDACTED] ersetzen!).
+      render: yaml
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Umgebung
+      options:
+        - Ubuntu / Debian
+        - Proxmox LXC
+        - Docker
+        - macOS
+        - Windows
+        - Sonstige
+    validations:
+      required: true
